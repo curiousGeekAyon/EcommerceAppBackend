@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Builder
 public class CategoryDto {
-    String name;
-    Integer id;
-    String imageUrl;
+    private String name;
+    private Integer id;
+    private String imageUrl;
 }

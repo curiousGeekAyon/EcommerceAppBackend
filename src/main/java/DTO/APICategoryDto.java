@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 @Builder
 
 public class APICategoryDto {
-    Integer id;
-    String name;
-    String slug;
-    String image;
+    private Integer id;
+    private String name;
+    private String slug;
+    private String image;
 }

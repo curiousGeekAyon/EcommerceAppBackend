@@ -1,11 +1,10 @@
 package com.Ecommerce.Backend.Gateway;
 
-import DTO.APICategoryDto;
 import DTO.APIProductDto;
-import DTO.CategoryDto;
 import DTO.ProductDto;
-import com.Ecommerce.Backend.API.FakeStoreApi;
+import com.Ecommerce.Backend.API.FakeStoreProductApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -13,27 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FakeApiGateway implements CategoryGateway, ProductGateway {
+@Qualifier("retrofit")
+public class FakeStoreProductApiGateway implements  ProductGateway{
 
     @Autowired
-    FakeStoreApi fakeStoreApi;
-    @Override
-    public List<CategoryDto> getAllCategory() throws IOException {
-       List<APICategoryDto>categoryListFromApi=fakeStoreApi.getAllCategories().execute().body();
-        assert categoryListFromApi != null;
-        return convertToCategoryDTOs(categoryListFromApi);
-    }
-
-    private List<CategoryDto> convertToCategoryDTOs(List<APICategoryDto> categoryListFromApi) {
-        List<CategoryDto>resultList=new ArrayList<>();
-        for(APICategoryDto apiDto:categoryListFromApi)
-        {
-            resultList.add(CategoryDto.builder().id(apiDto.getId()).name(apiDto.getName()).imageUrl(apiDto.getImage()).build());
-        }
-        return resultList;
-    }
-    public List<ProductDto>getAllProductsByCategoryId(int categoryId) throws IOException {
-        List<APIProductDto>apiProductDtoList=fakeStoreApi.getAllItemsByCategoryId(categoryId).execute().body();
+    FakeStoreProductApi fakeStoreProductApi;
+    public List<ProductDto> getAllProductsByCategoryId(int categoryId) throws IOException {
+        List<APIProductDto>apiProductDtoList=fakeStoreProductApi.getAllItemsByCategoryId(categoryId).execute().body();
         assert apiProductDtoList != null;
         return convertToProductDto(apiProductDtoList);
     }
@@ -47,7 +32,7 @@ public class FakeApiGateway implements CategoryGateway, ProductGateway {
         return resultList;
     }
     public ProductDto getProductById(int Id) throws IOException {
-        APIProductDto apiProductDto=fakeStoreApi.getProductById(Id).execute().body();
+        APIProductDto apiProductDto=fakeStoreProductApi.getProductById(Id).execute().body();
         assert apiProductDto != null;
         return APIProductDtotoProductDtoConverter(apiProductDto);
     }

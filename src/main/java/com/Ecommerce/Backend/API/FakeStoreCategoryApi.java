@@ -9,16 +9,7 @@ import retrofit2.http.Query;
 
 import java.util.List;
 
-public interface FakeStoreApi {
+public interface FakeStoreCategoryApi {
     @GET("categories")
     Call<List<APICategoryDto>> getAllCategories();
-
-    @GET("products/")
-    Call<List<APIProductDto>> getAllItemsByCategoryId(
-            @Query("categoryId") int categoryId
-    );
-    @GET("products/{productId}")
-    Call<APIProductDto> getProductById(
-            @Path("productId")int productId
-    );
 }

@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Configuration
 public class RetrofitConfig {
-    @Value("${FAKESTOREAPIBASEURL}")
+    @Value("${fakestore.api.baseurl}")
     String baseUrl;
     @Bean
     public Retrofit retrofitCreation()
@@ -25,8 +25,13 @@ public class RetrofitConfig {
     }
 
     @Bean
-    public FakeStoreApi fakeStoreApiCreation(Retrofit retrofit)
+    public FakeStoreCategoryApi fakeStoreCategoryApiCreation(Retrofit retrofit)
     {
-        return retrofit.create(FakeStoreApi.class);
+        return retrofit.create(FakeStoreCategoryApi.class);
+    }
+    @Bean
+    public FakeStoreProductApi fakeStoreProductApiCreation(Retrofit retrofit)
+    {
+        return retrofit.create(FakeStoreProductApi.class);
     }
 }
